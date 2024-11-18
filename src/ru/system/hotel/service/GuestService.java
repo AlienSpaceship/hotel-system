@@ -10,5 +10,18 @@ public class GuestService {
     public void addToDatabase(String name, String surName, Passport passport){
         Guest guest = new Guest(name, surName, passport);
         guestList.add(guest);
+        System.out.println("Гость " + name + " " + surName + " добавлен.");
     }
+
+    public void deleteFromDatabase(String name, String surName) {
+        for (Guest guest : guestList) {
+            if (guest.getName().equals(name) && guest.getSurName().equals(surName)) {
+                guestList.remove(guest);
+                System.out.println("Гость удален: " + name + " " + surName);
+                return;
+            }
+        }
+        System.out.println("Ошибка: Гость " + name + " " + surName + " не найден.");
+    }
+
 }
