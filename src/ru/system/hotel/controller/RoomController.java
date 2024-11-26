@@ -28,12 +28,11 @@ public class RoomController {
                     deleteRoom();
                     break;
                 case 3:
-                    service.listRooms();
+                    listRoom();
                     break;
                 case 4:
                     System.out.println("Выход из программы...");
-                    scanner.close();
-                    return; // Завершение метода, выход из цикла
+                    return;
                 default:
                     System.out.println("Неверный выбор. Попробуйте еще раз.");
             }
@@ -64,16 +63,22 @@ public class RoomController {
         scanner.nextLine(); // Очистка буфера
 
         service.addToDatabase(number, roomType, isAvailable);
-        System.out.println("Комната " + number +" успешно добавлена.");
+        System.out.println("Комната " + number + " успешно добавлена.");
 
     }
 
-    public void deleteRoom(){
+    public void deleteRoom() {
         String number;
         System.out.print("Введите номер комнаты который хотите удалить: ");
         number = scanner.nextLine();
 
         service.deleteFromDatabase(number);
-        System.out.println("Комната " + number +" успешно удалена.");
+        System.out.println("Комната " + number + " успешно удалена.");
+    }
+
+    public void listRoom(){
+        System.out.println("--------------------");
+        service.listRooms();
+        System.out.println("--------------------");
     }
 }

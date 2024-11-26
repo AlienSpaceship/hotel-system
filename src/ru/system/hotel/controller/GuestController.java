@@ -57,4 +57,8 @@ public class GuestController {
 
         service.deleteFromDatabase(name, surName);
     }
+
+    public void listGuests(){
+        service.listGuests();
+    }
 }

@@ -24,4 +24,11 @@ public class GuestService {
         System.out.println("Ошибка: Гость " + name + " " + surName + " не найден.");
     }
 
+    public void listGuests() {
+        System.out.println("Список гостей:");
+        for (Guest guest : guestList) {
+            System.out.print("Имя: " + guest.getName() + ", Фамилия: " + guest.getSurName() + ", Паспорт: " + guest.getPassport());
+        }
+    }
+
 }
