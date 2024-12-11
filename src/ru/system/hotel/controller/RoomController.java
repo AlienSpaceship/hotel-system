@@ -15,7 +15,7 @@ public class RoomController {
             System.out.println("1. Добавить комнату");
             System.out.println("2. Удалить комнату");
             System.out.println("3. Список комнат");
-            System.out.println("4. Выйти");
+            System.out.println("4. Назад");
 
             int choice = scanner.nextInt();
             scanner.nextLine(); // Очистка буфера
@@ -31,7 +31,7 @@ public class RoomController {
                     listRoom();
                     break;
                 case 4:
-                    System.out.println("Выход из программы...");
+                    System.out.println(" ");
                     return;
                 default:
                     System.out.println("Неверный выбор. Попробуйте еще раз.");
@@ -52,31 +52,25 @@ public class RoomController {
             try {
                 System.out.print("Введите тип комнаты (STANDARD, APARTMENT, PRESIDENTIAL): ");
                 roomType = Type.valueOf(scanner.nextLine().toUpperCase());
-                break; // Выход из цикла при успешном парсинге
+                break;
             } catch (IllegalArgumentException e) {
                 System.out.println("Некорректный тип комнаты. Пожалуйста, попробуйте снова.");
             }
         }
-
         System.out.print("Доступна ли комната (true/false): ");
         isAvailable = scanner.nextBoolean();
         scanner.nextLine(); // Очистка буфера
-
         service.addToDatabase(number, roomType, isAvailable);
-        System.out.println("Комната " + number + " успешно добавлена.");
-
     }
 
     public void deleteRoom() {
         String number;
         System.out.print("Введите номер комнаты который хотите удалить: ");
         number = scanner.nextLine();
-
         service.deleteFromDatabase(number);
-        System.out.println("Комната " + number + " успешно удалена.");
     }
 
-    public void listRoom(){
+    public void listRoom() {
         System.out.println("--------------------");
         service.listRooms();
         System.out.println("--------------------");

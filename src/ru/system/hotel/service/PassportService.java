@@ -4,6 +4,7 @@ import ru.system.hotel.model.Address;
 import ru.system.hotel.model.Passport;
 
 import java.time.LocalDate;
+import java.util.Iterator;
 
 import static ru.system.hotel.database.Database.passportList;
 
@@ -17,14 +18,22 @@ public class PassportService {
     }
 
     public void deleteFromDatabase(String number) {
-        for (Passport n : passportList) {
+        boolean success = false;
+        Iterator<Passport> iterator = passportList.iterator();
+
+        while (iterator.hasNext()) {
+            Passport n = iterator.next();
             if (n.getNumber().equals(number)) {
-                passportList.remove(n);
-                System.out.println("Паспорт удален: " + number);
-                return;
+                iterator.remove();
+                success = true;
+                break;
             }
         }
-        System.out.println("Ошибка: Паспорт с номером " + number + " не найден.");
+        if (success) {
+            System.out.println("Паспорт с номером " + number + " удален");
+        } else {
+            System.out.println("Ошибка: Паспорт с номером " + number + " не найден.");
+        }
 
     }
 }

@@ -87,14 +87,7 @@ public class Passport {
 
     @Override
     public String toString() {
-        return "Passport{" +
-                "name='" + name + '\'' +
-                ", surName='" + surName + '\'' +
-                ", series='" + series + '\'' +
-                ", number='" + number + '\'' +
-                ", dateOfIssue=" + dateOfIssue +
-                ", issuedByWhom='" + issuedByWhom + '\'' +
-                ", address=" + address +
-                '}';
+        return "Серия: " + series +
+                ", Номер: " + number + "\n";
     }
 }
