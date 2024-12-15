@@ -1,5 +1,6 @@
 package ru.system.hotel.controller;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainController {
@@ -8,7 +9,8 @@ public class MainController {
     private PassportController passportController;
     private RoomController roomController;
 
-    Scanner sc = new Scanner(System.in);
+    public MainController() {
+    }
 
     public MainController(GuestController guestController, PassportController passportController, RoomController roomController) {
         this.guestController = guestController;
@@ -16,9 +18,7 @@ public class MainController {
         this.roomController = roomController;
     }
 
-    public MainController() {
-
-    }
+    Scanner sc = new Scanner(System.in);
 
     public void start() {
 
@@ -28,8 +28,15 @@ public class MainController {
             System.out.println("2. Админ");
             System.out.println("3. Выход");
 
-            int choice = sc.nextInt();
-            sc.nextLine(); // Очистка буфера
+            int choice = 0;
+
+            try {
+                choice = sc.nextInt();
+            } catch (InputMismatchException ex) {
+                System.out.println("Ошибка выбора. Пожалуйста, попробуйте снова.");
+                sc.nextLine();
+                start();
+            }
 
             switch (choice) {
                 case 1:
@@ -47,17 +54,23 @@ public class MainController {
         }
     }
 
-    private void showClientMenu(){
+    private void showClientMenu() {
 
         System.out.println("Меню клиента:");
         System.out.println("1. Добавить гостя");
         System.out.println("2. Список комнат");
         System.out.println("3. Список гостей");
-        System.out.println("4. Выход");
+        System.out.println("4. Назад");
+        int choice = 0;
+        try {
+            choice = sc.nextInt();
+        }catch (InputMismatchException e){
+            System.out.println("Ошибка выбора. Пожалуйста, попробуйте снова.");
+            sc.nextLine();
+            showClientMenu();
+        }
 
-        int choice = sc.nextInt();
-        sc.nextLine(); // Очистка буфера
-
+        sc.nextLine();
         switch (choice) {
             case 1:
                 guestController.addGuest();
@@ -69,7 +82,6 @@ public class MainController {
                 guestController.listGuests();
                 break;
             case 4:
-                System.out.println("Выход из программы.");
                 return;
             default:
                 System.out.println("Ошибка выбора. Пожалуйста, попробуйте снова.");
@@ -83,14 +95,20 @@ public class MainController {
         System.out.println("1. Управление гостями");
         System.out.println("2. Управление паспортами");
         System.out.println("3. Управление комнатами");
-        System.out.println("4. Выход");
+        System.out.println("4. Назад");
+        int choice = 0;
+        try {
+            choice = sc.nextInt();
+        }catch (InputMismatchException e){
+            System.out.println("Ошибка выбора. Пожалуйста, попробуйте снова.");
+            sc.nextLine();
+            showAdminMenu();
+        }
 
-        int choice = sc.nextInt();
-        sc.nextLine(); // Очистка буфера
-
+        sc.nextLine();
         switch (choice) {
             case 1:
-                guestController.start();
+                guestController.showMenu();
                 break;
             case 2:
                 passportController.showMenu();
@@ -99,12 +117,9 @@ public class MainController {
                 roomController.showMenu();
                 break;
             case 4:
-                System.out.println("Выход из программы.");
                 return;
             default:
                 System.out.println("Ошибка выбора. Пожалуйста, попробуйте снова.");
-
-
         }
     }
 }

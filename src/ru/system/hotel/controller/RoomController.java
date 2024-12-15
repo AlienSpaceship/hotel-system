@@ -3,6 +3,7 @@ package ru.system.hotel.controller;
 import ru.system.hotel.model.Type;
 import ru.system.hotel.service.RoomService;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class RoomController {
@@ -11,14 +12,22 @@ public class RoomController {
 
     public void showMenu() {
         while (true) {
-            System.out.println("\nМеню:");
+            System.out.println("Меню:");
             System.out.println("1. Добавить комнату");
             System.out.println("2. Удалить комнату");
             System.out.println("3. Список комнат");
             System.out.println("4. Назад");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Очистка буфера
+            int choice = 0;
+            try {
+                choice = scanner.nextInt();
+            }catch (InputMismatchException e){
+                System.out.println("Ошибка выбора. Пожалуйста, попробуйте снова.");
+                scanner.nextLine();
+                showMenu();
+            }
+
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -40,14 +49,12 @@ public class RoomController {
     }
 
     public void addRoom() {
-
         String number;
         Type roomType;
         boolean isAvailable;
 
         System.out.print("Введите номер комнаты: ");
         number = scanner.nextLine();
-
         while (true) {
             try {
                 System.out.print("Введите тип комнаты (STANDARD, APARTMENT, PRESIDENTIAL): ");
@@ -57,9 +64,16 @@ public class RoomController {
                 System.out.println("Некорректный тип комнаты. Пожалуйста, попробуйте снова.");
             }
         }
-        System.out.print("Доступна ли комната (true/false): ");
-        isAvailable = scanner.nextBoolean();
-        scanner.nextLine(); // Очистка буфера
+        while (true) {
+            try {
+                System.out.print("Доступна ли комната (true/false): ");
+                isAvailable = scanner.nextBoolean();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Некорректный ввод. Пожалуйста, введите true или false.");
+                scanner.nextLine();
+            }
+        }
         service.addToDatabase(number, roomType, isAvailable);
     }
 

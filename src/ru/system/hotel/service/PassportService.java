@@ -10,9 +10,8 @@ import static ru.system.hotel.database.Database.passportList;
 
 public class PassportService {
 
-    public void addToDatabase(String name, String surName, String series, String number, LocalDate dateOfIssue,
-                              String issuedByWhom, Address address) {
-        Passport passport = new Passport(name, surName, series, number, dateOfIssue, issuedByWhom, address);
+    public void addToDatabase(String name, String surName, String series, String number, Address address) {
+        Passport passport = new Passport(name, surName, series, number, address);
         passportList.add(passport);
         System.out.println("Паспорт с номером " + number + " добавлен.");
     }
@@ -34,6 +33,15 @@ public class PassportService {
         } else {
             System.out.println("Ошибка: Паспорт с номером " + number + " не найден.");
         }
-
     }
+
+    public void listPassport() {
+        System.out.println("Список паспортов:");
+        for (Passport passport : passportList) {
+            System.out.println("Имя: " + passport.getName() + ", Фамилия: " + passport.getSurName() +
+                    ", Серия: " + passport.getSeries() + ", Номер: " + passport.getNumber() +
+                    ", Адрес: " + passport.getAddress());
+        }
+    }
+
 }

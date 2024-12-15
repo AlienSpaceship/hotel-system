@@ -12,7 +12,7 @@ public class RoomService {
     public void addToDatabase(String number, Type roomType, boolean isAvailable) {
         Room room = new Room(number, roomType, isAvailable);
         roomList.add(room);
-        System.out.println("ADD ROOM...");
+        System.out.println("Комната добавлена");
     }
 
     public void deleteFromDatabase(String number) {

@@ -3,7 +3,6 @@ package ru.system.hotel.controller;
 import ru.system.hotel.model.Address;
 import ru.system.hotel.service.PassportService;
 
-import java.time.LocalDate;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -20,14 +19,14 @@ public class PassportController {
 
     public void showMenu() {
         System.out.println("Выберите действие: " + '\n' +
-                "1. Добавить паспорт" + '\n' + "2. Удалить паспорт");
+                "1. Добавить паспорт" + '\n' + "2. Удалить паспорт" + '\n' + "3. Список паспортов");
 
         int choose = 0;
 
         try {
             choose = sc.nextInt();
         } catch (InputMismatchException e) {
-            System.out.println("Неверный ввод");
+            System.out.println("Ошибка: некорректный ввод данных. Пожалуйста, попробуйте еще раз.");
             sc.nextLine();
             showMenu();
         }
@@ -36,6 +35,8 @@ public class PassportController {
             addPassport();
         } else if (choose == 2) {
             deletePassport();
+        } else if (choose == 3) {
+            listPassport();
         } else {
             System.out.println("Ошибка выбора");
             showMenu();
@@ -43,24 +44,24 @@ public class PassportController {
     }
 
     public void addPassport() {
-        sc.nextLine();
-        System.out.print("Введите имя: ");
-        String name = sc.nextLine();
-        System.out.print("Введите фамилию: ");
-        String surName = sc.nextLine();
-        System.out.print("Введите серию: ");
-        String series = sc.nextLine();
-        System.out.print("Введите номер: ");
-        String number = sc.nextLine();
-        System.out.print("Введите дату выдачи: ");
-        LocalDate dateOfIssue = addDate(sc);
-        sc.nextLine();
-        System.out.print("Кем выдано: ");
-        String issuedByWhom = sc.nextLine();
-        System.out.print("Место прописки: ");
-        Address address = addAddress();
+        try {
+            sc.nextLine();
+            System.out.print("Введите имя: ");
+            String name = sc.nextLine();
+            System.out.print("Введите фамилию: ");
+            String surName = sc.nextLine();
+            System.out.print("Введите серию: ");
+            String series = sc.nextLine();
+            System.out.print("Введите номер: ");
+            String number = sc.nextLine();
+            System.out.print("Место прописки: [Страна, Город, Улица, Дом, Индекс]: ");
+            Address address = addAddress();
 
-        service.addToDatabase(name, surName, series, number, dateOfIssue, issuedByWhom, address);
+            service.addToDatabase(name, surName, series, number, address);
+            System.out.println("Паспорт успешно добавлен.");
+        } catch (InputMismatchException e) {
+            System.out.println("Ошибка: некорректный ввод данных. Пожалуйста, попробуйте еще раз.");
+        }
     }
 
     public void deletePassport() {
@@ -70,8 +71,10 @@ public class PassportController {
         service.deleteFromDatabase(number);
     }
 
-    public static LocalDate addDate(Scanner scanner) {
-        return LocalDate.parse(scanner.next());
+    public void listPassport() {
+        System.out.println("--------------------");
+        service.listPassport();
+        System.out.println("--------------------");
     }
 
     public static Address addAddress() {

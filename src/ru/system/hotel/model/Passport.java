@@ -12,20 +12,13 @@ public class Passport {
 
     private String number;
 
-    private LocalDate dateOfIssue;
-
-    private String issuedByWhom;
-
     private Address address;
 
-    public Passport(String name, String surName, String series, String number, LocalDate dateOfIssue,
-                    String issuedByWhom, Address address) {
+    public Passport(String name, String surName, String series, String number, Address address) {
         this.name = name;
         this.surName = surName;
         this.series = series;
         this.number = number;
-        this.dateOfIssue = dateOfIssue;
-        this.issuedByWhom = issuedByWhom;
         this.address = address;
     }
 
@@ -59,22 +52,6 @@ public class Passport {
 
     public void setNumber(String number) {
         this.number = number;
-    }
-
-    public LocalDate getDateOfIssue() {
-        return dateOfIssue;
-    }
-
-    public void setDateOfIssue(LocalDate dateOfIssue) {
-        this.dateOfIssue = dateOfIssue;
-    }
-
-    public String getIssuedByWhom() {
-        return issuedByWhom;
-    }
-
-    public void setIssuedByWhom(String issuedByWhom) {
-        this.issuedByWhom = issuedByWhom;
     }
 
     public Address getAddress() {

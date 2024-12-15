@@ -21,6 +21,3 @@ public class Main {
     }
 }
 
-
-// Hotel, Room, Guest, Reservation, CheckIn, CheckOut, Payment
-
